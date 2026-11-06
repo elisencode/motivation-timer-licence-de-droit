@@ -1,0 +1,66 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #FAF8F5;
+    color: #2D3748;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  body.dark,
+  html.dark body {
+    background-color: #0F141C;
+    color: #E2E8F0;
+  }
+}
+
+.font-serif-law {
+  font-family: 'Fraunces', Georgia, Cambria, serif;
+}
+
+/* Custom smooth transitions */
+::selection {
+  background-color: #E8D5C4;
+  color: #2D3748;
+}
+
+.dark ::selection {
+  background-color: #334155;
+  color: #F8FAFC;
+}
+
+/* Subtle glow pulse animation for final 60 seconds of a study/break cycle */
+@keyframes timer-final-minute-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px rgba(244, 63, 94, 0.25));
+  }
+  50% {
+    transform: scale(1.02);
+    filter: drop-shadow(0 0 18px rgba(244, 63, 94, 0.55));
+  }
+}
+
+@keyframes timer-stroke-glow {
+  0%, 100% {
+    stroke-width: 10px;
+    filter: drop-shadow(0 0 4px rgba(244, 63, 94, 0.3));
+  }
+  50% {
+    stroke-width: 12px;
+    filter: drop-shadow(0 0 12px rgba(244, 63, 94, 0.8));
+  }
+}
+
+.animate-timer-pulse {
+  animation: timer-final-minute-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-stroke-pulse {
+  animation: timer-stroke-glow 2s ease-in-out infinite;
+}
+

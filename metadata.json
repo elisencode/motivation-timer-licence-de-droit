@@ -1,0 +1,6 @@
+{
+  "name": "Motivation Timer · Licence de Droit",
+  "description": "Minuteur épuré de 25 min de révision et 5 min de pause avec encouragements humoristiques pour la licence de droit.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
