@@ -192,11 +192,9 @@ export const LAW_QUOTES: LawQuote[] = [
 ];
 
 export const LAW_SUBJECTS = [
-  { id: 'general', name: 'Matière Générale Licence', icon: 'Scale', color: 'slate' },
-  { id: 'civil', name: 'Droit Civil Obligations', icon: 'BookOpen', color: 'rose' },
-  { id: 'licence', name: 'Licence Droit', icon: 'Award', color: 'emerald' },
-  { id: 'master', name: 'Master Droit', icon: 'GraduationCap', color: 'amber' },
-  { id: 'doctorat', name: 'Doctorant en Droit', icon: 'Scroll', color: 'indigo' }
+  { id: 'licence', name: 'Licence Droit', emoji: '🥇', icon: 'Award', color: 'emerald' },
+  { id: 'master', name: 'Master Droit', emoji: '🎓', icon: 'GraduationCap', color: 'amber' },
+  { id: 'doctorat', name: 'Doctorant en Droit', emoji: '📜', icon: 'Scroll', color: 'indigo' }
 ] as const;
 
 export const LAW_RANKS = [

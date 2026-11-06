@@ -17,9 +17,7 @@ Bienvenue sur le **Motivation Timer**, une application web épurée aux couleurs
 L'application repose sur le principe de la méthode Pomodoro rythmée par l'univers et l'humour juridique des facultés de droit françaises :
 
 ### 1. 🌿 Lancer une session de révision (25 minutes)
-- Choisissez votre programme dans la barre **« Droit en Focus »** :
-  - ⚖️ *Matière Générale Licence*
-  - 📖 *Droit Civil Obligations*
+- Choisissez votre niveau dans la barre **« ⚖️ Droit en Focus : »** :
   - 🥇 *Licence Droit*
   - 🎓 *Master Droit*
   - 📜 *Doctorant en Droit*

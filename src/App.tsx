@@ -134,7 +134,26 @@ export default function App() {
     }
   };
 
-  const [selectedSubject, setSelectedSubject] = useState<string>('general');
+  const [selectedSubject, setSelectedSubject] = useState<string>(() => {
+    try {
+      const saved = localStorage.getItem('law_selected_subject');
+      if (saved === 'licence' || saved === 'master' || saved === 'doctorat') {
+        return saved;
+      }
+      return 'licence';
+    } catch {
+      return 'licence';
+    }
+  });
+
+  const handleSelectSubject = (id: string) => {
+    setSelectedSubject(id);
+    try {
+      localStorage.setItem('law_selected_subject', id);
+    } catch {}
+    if (soundRef.current) playSoftClick(0.1);
+  };
+
   // Mode Nuit exclusif et permanent
   const darkMode = true;
 
@@ -953,7 +972,7 @@ export default function App() {
         <div className="w-full max-w-md mb-6 flex justify-center">
           <SubjectSelector
             selectedSubject={selectedSubject}
-            onSelect={setSelectedSubject}
+            onSelect={handleSelectSubject}
           />
         </div>
 
