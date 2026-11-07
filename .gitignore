@@ -1,8 +1,135 @@
+# ==============================================================================
+# ⚖️ .gitignore - Motivation Timer (Licence de Droit)
+# Configuration complète, sécurisée et commentée pour GitHub
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. DÉPENDANCES
+# ------------------------------------------------------------------------------
 node_modules/
-build/
+.pnp
+.pnp.js
+
+# ------------------------------------------------------------------------------
+# 2. COMPILATION & BUILDS
+# ------------------------------------------------------------------------------
+# Dossier de build standard (si généré localement)
 dist/
+dist-ssr/
+build/
 coverage/
-.DS_Store
-*.log
+
+# ⚠️ ATTENTION SPÉCIALE GITHUB PAGES :
+# Ne PAS ajouter 'docs/' ici ! 
+# Votre application GitHub Pages est configurée pour déployer depuis la branche 
+# main et le dossier /docs. Si docs/ est ignoré, le site affichera une page 404.
+
+# ------------------------------------------------------------------------------
+# 3. VARIABLES D'ENVIRONNEMENT & SECRETS (Cybersécurité & Anti-fuite)
+# ------------------------------------------------------------------------------
+# Fichiers d'environnement locaux contenant potentiellement des clés ou secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
 .env*
+
+# Exception autorisée : le fichier d'exemple modèle sans secrets
 !.env.example
+
+# Clés privées, certificats et jetons
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+id_rsa
+id_ecdsa
+id_ed25519
+service-account*.json
+credentials.json
+
+# ------------------------------------------------------------------------------
+# 4. CACHES & FICHIERS TEMPORAIRES DE BUILD
+# ------------------------------------------------------------------------------
+# Cache local de Vite
+.vite/
+# Cache de compilation incrémentale TypeScript
+*.tsbuildinfo
+# Caches de linters et formatteurs
+.eslintcache
+.stylelintcache
+.prettiercache
+# Turbo / Parcel
+.turbo/
+.parcel-cache/
+
+# ------------------------------------------------------------------------------
+# 5. LOGS & DIAGNOSTICS
+# ------------------------------------------------------------------------------
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ------------------------------------------------------------------------------
+# 6. SYSTÈME D'EXPLOITATION (macOS, Windows, Linux)
+# ------------------------------------------------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# ------------------------------------------------------------------------------
+# 7. ÉDITEURS & ENVIRONNEMENTS DE DÉVELOPPEMENT (IDEs)
+# ------------------------------------------------------------------------------
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains (WebStorm, IntelliJ IDEA, PhpStorm)
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Sublime Text & VIM
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+
+# ------------------------------------------------------------------------------
+# 8. OUTILS ET ENVIRONNEMENT DE TRAVAIL
+# ------------------------------------------------------------------------------
+.aistudio/
+*.tmp
+*.temp
+*.bak

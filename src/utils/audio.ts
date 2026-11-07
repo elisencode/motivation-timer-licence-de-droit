@@ -102,7 +102,9 @@ export function playNotreDameBell(volume = 0.7) {
   try {
     if (typeof Audio !== 'undefined') {
       if (!cachedBellAudio) {
-        cachedBellAudio = new Audio('/assets/audio/cloche_notre_dame.mp3');
+        const base = import.meta.env.BASE_URL || './';
+        const cleanBase = base.endsWith('/') ? base : `${base}/`;
+        cachedBellAudio = new Audio(`${cleanBase}assets/audio/cloche_notre_dame.mp3`);
       }
       cachedBellAudio.currentTime = 0;
       cachedBellAudio.volume = Math.min(1, Math.max(0, volume));

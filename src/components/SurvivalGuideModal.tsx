@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Award, Scroll, Scale, Sparkles, BookOpen, ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
 import { LAW_RANKS } from '../data/lawQuotes';
 import guideImg from '../assets/droit_tout_en_douceur.jpg';
@@ -12,6 +12,7 @@ interface SurvivalGuideModalProps {
   isOpen: boolean;
   onClose: () => void;
   completedSessions: number;
+  initialTab?: 'infographie' | 'regles';
 }
 
 const SURVIVAL_RULES = [
@@ -75,9 +76,15 @@ const METHOD_PILLARS = [
   }
 ];
 
-export function SurvivalGuideModal({ isOpen, onClose, completedSessions }: SurvivalGuideModalProps) {
-  const [activeTab, setActiveTab] = useState<'infographie' | 'regles'>('infographie');
+export function SurvivalGuideModal({ isOpen, onClose, completedSessions, initialTab = 'infographie' }: SurvivalGuideModalProps) {
+  const [activeTab, setActiveTab] = useState<'infographie' | 'regles'>(initialTab);
   const [isZoomed, setIsZoomed] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isOpen && initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [isOpen, initialTab]);
 
   if (!isOpen) return null;
 

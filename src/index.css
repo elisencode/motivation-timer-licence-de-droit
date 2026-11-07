@@ -64,3 +64,419 @@
   animation: timer-stroke-glow 2s ease-in-out infinite;
 }
 
+/* Warm candlelight glow flicker and soft sparkles */
+@keyframes candle-warm-glow {
+  0%, 100% {
+    opacity: 0.38;
+    transform: scale(1) translate(0, 0);
+    filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.35)) drop-shadow(0 0 50px rgba(245, 158, 11, 0.2));
+  }
+  25% {
+    opacity: 0.48;
+    transform: scale(1.02) translate(1px, -2px);
+    filter: drop-shadow(0 0 35px rgba(251, 191, 36, 0.5)) drop-shadow(0 0 70px rgba(245, 158, 11, 0.3));
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.98) translate(-1px, 1px);
+    filter: drop-shadow(0 0 28px rgba(251, 191, 36, 0.4)) drop-shadow(0 0 55px rgba(245, 158, 11, 0.25));
+  }
+  75% {
+    opacity: 0.52;
+    transform: scale(1.03) translate(0, -1px);
+    filter: drop-shadow(0 0 42px rgba(251, 191, 36, 0.6)) drop-shadow(0 0 80px rgba(245, 158, 11, 0.35));
+  }
+}
+
+@keyframes soft-shimmer-sparkle {
+  0%, 100% {
+    opacity: 0.15;
+    transform: translateY(0) scale(0.9);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-5px) scale(1.15);
+  }
+}
+
+.animate-candle-glow {
+  animation: candle-warm-glow 4.2s ease-in-out infinite;
+}
+
+.animate-sparkle-1 {
+  animation: soft-shimmer-sparkle 3.2s ease-in-out infinite;
+}
+
+.animate-sparkle-2 {
+  animation: soft-shimmer-sparkle 4.6s ease-in-out infinite 1.2s;
+}
+
+.animate-sparkle-3 {
+  animation: soft-shimmer-sparkle 3.9s ease-in-out infinite 2.2s;
+}
+
+/* Onsen thermal steam mist rising softly */
+@keyframes onsen-steam-rise {
+  0% {
+    opacity: 0.25;
+    transform: translateY(8px) scale(0.96);
+  }
+  50% {
+    opacity: 0.55;
+    transform: translateY(-10px) scale(1.05);
+  }
+  100% {
+    opacity: 0.25;
+    transform: translateY(-24px) scale(1.12);
+  }
+}
+
+/* Sakura falling petal drift with gentle spring breeze sway */
+@keyframes sakura-petal-drift {
+  0% {
+    transform: translate(0, -15px) rotate(0deg) scale(0.9);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate(75px, 140px) rotate(220deg) scale(1.05);
+    opacity: 0;
+  }
+}
+
+.animate-onsen-steam {
+  animation: onsen-steam-rise 6.5s ease-in-out infinite alternate;
+}
+
+.animate-sakura-1 {
+  animation: sakura-petal-drift 7.5s ease-in-out infinite;
+}
+
+.animate-sakura-2 {
+  animation: sakura-petal-drift 9.5s ease-in-out infinite 2.8s;
+}
+
+.animate-sakura-3 {
+  animation: sakura-petal-drift 8.2s ease-in-out infinite 4.5s;
+}
+
+.animate-sakura-4 {
+  animation: sakura-petal-drift 10.5s ease-in-out infinite 1.5s;
+}
+
+/* ==============================================================================
+   1. FACULTÉ DE DROIT : Cathédrale, Résonance Acoustique & Étoiles du Crépuscule
+   ============================================================================== */
+@keyframes cathedral-ring-wave {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.6;
+    border-width: 2px;
+  }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+@keyframes twilight-star-gleam {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 6px rgba(254, 240, 138, 0.9));
+  }
+}
+
+.animate-cathedral-ring-1 {
+  animation: cathedral-ring-wave 5s cubic-bezier(0.1, 0.4, 0.3, 1) infinite;
+}
+
+.animate-cathedral-ring-2 {
+  animation: cathedral-ring-wave 5s cubic-bezier(0.1, 0.4, 0.3, 1) infinite 2.5s;
+}
+
+.animate-twilight-star {
+  animation: twilight-star-gleam 3.5s ease-in-out infinite;
+}
+
+/* ==============================================================================
+   2. SOIR DE NOËL : Cheminée Crépitante, Guirlandes & Flocons à la Fenêtre
+   ============================================================================== */
+@keyframes fireplace-hearth-glow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.98);
+    filter: drop-shadow(0 0 35px rgba(234, 88, 12, 0.4)) drop-shadow(0 0 70px rgba(249, 115, 22, 0.25));
+  }
+  30% {
+    opacity: 0.52;
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 45px rgba(234, 88, 12, 0.55)) drop-shadow(0 0 90px rgba(249, 115, 22, 0.35));
+  }
+  70% {
+    opacity: 0.42;
+    transform: scale(1.01);
+    filter: drop-shadow(0 0 40px rgba(234, 88, 12, 0.45)) drop-shadow(0 0 80px rgba(249, 115, 22, 0.3));
+  }
+}
+
+@keyframes xmas-fairy-lights {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.25);
+    filter: drop-shadow(0 0 8px currentColor);
+  }
+}
+
+@keyframes window-snow-fall {
+  0% {
+    transform: translate(0, -10px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-30px, 110px);
+    opacity: 0;
+  }
+}
+
+.animate-fireplace-glow {
+  animation: fireplace-hearth-glow 3.6s ease-in-out infinite;
+}
+
+.animate-xmas-light-1 {
+  animation: xmas-fairy-lights 2.8s ease-in-out infinite;
+}
+
+.animate-xmas-light-2 {
+  animation: xmas-fairy-lights 3.4s ease-in-out infinite 1.1s;
+}
+
+.animate-xmas-light-3 {
+  animation: xmas-fairy-lights 2.4s ease-in-out infinite 1.7s;
+}
+
+.animate-snow-1 {
+  animation: window-snow-fall 6s linear infinite;
+}
+
+.animate-snow-2 {
+  animation: window-snow-fall 7.5s linear infinite 2s;
+}
+
+.animate-snow-3 {
+  animation: window-snow-fall 8.5s linear infinite 3.5s;
+}
+
+/* ==============================================================================
+   3. CŒUR DE SÉLÉNITE : Aura Cristalline Respirante & Reflets Prismatiques
+   ============================================================================== */
+@keyframes selenite-core-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.97);
+    filter: drop-shadow(0 0 30px rgba(165, 243, 252, 0.35)) drop-shadow(0 0 60px rgba(224, 242, 254, 0.2));
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 50px rgba(165, 243, 252, 0.55)) drop-shadow(0 0 95px rgba(224, 242, 254, 0.35));
+  }
+}
+
+@keyframes crystal-prism-gleam {
+  0%, 100% {
+    opacity: 0.2;
+    transform: rotate(0deg) scale(0.8);
+  }
+  50% {
+    opacity: 0.95;
+    transform: rotate(45deg) scale(1.3);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 20px rgba(186, 230, 253, 0.8));
+  }
+}
+
+.animate-selenite-pulse {
+  animation: selenite-core-pulse 5s ease-in-out infinite;
+}
+
+.animate-prism-gleam-1 {
+  animation: crystal-prism-gleam 3.2s ease-in-out infinite;
+}
+
+.animate-prism-gleam-2 {
+  animation: crystal-prism-gleam 4.2s ease-in-out infinite 1.5s;
+}
+
+/* ==============================================================================
+   4. LEGALTECH & ZEN CODE : Particules de Code Émeraude & Balances de Thémis
+   ============================================================================== */
+@keyframes cyber-matrix-float {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.75;
+  }
+  70% {
+    opacity: 0.65;
+  }
+  100% {
+    transform: translateY(-80px);
+    opacity: 0;
+  }
+}
+
+@keyframes themis-scale-gleam {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.3));
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(1.03);
+    filter: drop-shadow(0 0 35px rgba(245, 158, 11, 0.6)) drop-shadow(0 0 60px rgba(251, 191, 36, 0.4));
+  }
+}
+
+@keyframes phosphor-screen-glow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.animate-cyber-float-1 {
+  animation: cyber-matrix-float 6s ease-in-out infinite;
+}
+
+.animate-cyber-float-2 {
+  animation: cyber-matrix-float 7.5s ease-in-out infinite 2s;
+}
+
+.animate-cyber-float-3 {
+  animation: cyber-matrix-float 8.5s ease-in-out infinite 3.8s;
+}
+
+.animate-themis-gleam {
+  animation: themis-scale-gleam 4.5s ease-in-out infinite;
+}
+
+.animate-screen-glow {
+  animation: phosphor-screen-glow 3s ease-in-out infinite;
+}
+
+/* ==============================================================================
+   5. UN JOUR À LA FOIS : Rayon de Soleil Matinal, Vapeur du Café & Poussières d'Amphi
+   ============================================================================== */
+@keyframes amphi-sunbeam-stream {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scaleY(0.98) skewX(-12deg);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scaleY(1.03) skewX(-10deg);
+    filter: drop-shadow(0 0 40px rgba(253, 224, 71, 0.35));
+  }
+}
+
+@keyframes morning-dust-mote {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(25px, -60px);
+    opacity: 0;
+  }
+}
+
+@keyframes coffee-steam-swirl {
+  0% {
+    transform: translate(0, 0) scale(0.9);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate(4px, -15px) scale(1.1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-3px, -32px) scale(1.25);
+    opacity: 0;
+  }
+}
+
+.animate-sunbeam {
+  animation: amphi-sunbeam-stream 6s ease-in-out infinite alternate;
+}
+
+.animate-dust-1 {
+  animation: morning-dust-mote 7s ease-in-out infinite;
+}
+
+.animate-dust-2 {
+  animation: morning-dust-mote 9s ease-in-out infinite 2.2s;
+}
+
+.animate-dust-3 {
+  animation: morning-dust-mote 8s ease-in-out infinite 4.1s;
+}
+
+.animate-coffee-steam {
+  animation: coffee-steam-swirl 4s ease-in-out infinite;
+}
+
+/* ==============================================================================
+   6. MINIMALISTE : Respiration d'Aurore Pastel Harmonique
+   ============================================================================== */
+@keyframes minimalist-aurora-breath {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.04);
+  }
+}
+
+.animate-aurora-breath {
+  animation: minimalist-aurora-breath 7s ease-in-out infinite;
+}
+
+
+
+

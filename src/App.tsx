@@ -157,7 +157,14 @@ export default function App() {
   // Mode Nuit exclusif et permanent
   const darkMode = true;
 
-  type BgTheme = 'selenite' | 'legaltech' | 'one_day' | 'faculte' | 'none';
+  // Helper for resolving asset paths with Vite base path (ensures GitHub Pages compatibility)
+  const getAssetUrl = (path: string): string => {
+    const base = import.meta.env.BASE_URL || './';
+    const cleanBase = base.endsWith('/') ? base : `${base}/`;
+    return `${cleanBase}${path.replace(/^\//, '')}`;
+  };
+
+  type BgTheme = 'faculte' | 'noel' | 'onsen' | 'selenite' | 'legaltech' | 'one_day' | 'none';
   type BgIntensity = 'balanced' | 'vibrant' | 'subtle';
 
   interface BackgroundOption {
@@ -170,50 +177,64 @@ export default function App() {
 
   const BACKGROUND_OPTIONS: BackgroundOption[] = [
     {
+      id: 'faculte',
+      title: 'Faculté de Droit',
+      subtitle: 'Vue historique de la faculté & de la cathédrale au crépuscule',
+      tag: 'Classique 🏛️',
+      imageSrc: getAssetUrl('assets/aistudio/facdroit_a098dbcf.jpg')
+    },
+    {
+      id: 'noel',
+      title: 'Soir de Noël & Cheminée',
+      subtitle: 'Révision du 25 déc. (Code civil, GAJA), chat sphynx au coin du feu & traîneau de Noël',
+      tag: 'Noël & Sphynx 🎄🐱',
+      imageSrc: getAssetUrl('assets/noel_droit_cheminee.jpg')
+    },
+    {
+      id: 'onsen',
+      title: 'Onsen & Sakura au Japon',
+      subtitle: 'Bain thermal avec les singes des neiges sous les cerisiers en fleurs & révisions zen',
+      tag: 'Onsen & Sakura 🌸🐒',
+      imageSrc: getAssetUrl('assets/japon_onsen_sakura.jpg')
+    },
+    {
       id: 'selenite',
       title: 'Cœur de Sélénite',
       subtitle: 'Cristal rayonnant, bougie & sérénité d\'étude apaisante',
-      tag: 'Zen & Cristal',
-      imageSrc: '/assets/coeur_selenite_zen.jpg'
+      tag: 'Zen & Cristal 🤍',
+      imageSrc: getAssetUrl('assets/coeur_selenite_zen.jpg')
     },
     {
       id: 'legaltech',
       title: 'LegalTech & Zen Code',
       subtitle: 'Thémis dorée, code émeraude & bibliothèque nocturne',
       tag: 'Droit & Code ⚖️💻',
-      imageSrc: '/assets/legaltech_zen_code.jpg'
-    },
-    {
-      id: 'faculte',
-      title: 'Faculté de Droit',
-      subtitle: 'Vue historique de la faculté & de la cathédrale au crépuscule',
-      tag: 'Classique',
-      imageSrc: '/assets/aistudio/facdroit_a098dbcf.jpg'
+      imageSrc: getAssetUrl('assets/legaltech_zen_code.jpg')
     },
     {
       id: 'one_day',
       title: 'Un jour à la fois',
       subtitle: 'Amphithéâtre de Droit au matin · Aller s\'asseoir sur sa chaise en amphi',
       tag: 'Amphi & Présence ☀️',
-      imageSrc: '/assets/amphi_un_jour_a_la_fois.jpg'
+      imageSrc: getAssetUrl('assets/amphi_un_jour_a_la_fois.jpg')
     },
     {
       id: 'none',
       title: 'Minimaliste',
       subtitle: 'Palette pastel douce et épurée sans illustration',
-      tag: 'Épuré'
+      tag: 'Épuré 🍃'
     }
   ];
 
   const [bgTheme, setBgTheme] = useState<BgTheme>(() => {
     try {
       const saved = localStorage.getItem('law_bg_theme');
-      if (saved === 'legaltech' || saved === 'one_day' || saved === 'selenite' || saved === 'faculte' || saved === 'none') {
+      if (saved === 'faculte' || saved === 'noel' || saved === 'onsen' || saved === 'legaltech' || saved === 'one_day' || saved === 'selenite' || saved === 'none') {
         return saved as BgTheme;
       }
-      return 'legaltech'; // Default to the newly added LegalTech & Zen Code
+      return 'faculte'; // Default to Faculté de Droit
     } catch {
-      return 'legaltech';
+      return 'faculte';
     }
   });
 
@@ -231,7 +252,7 @@ export default function App() {
 
   // Cycle directly to the next background wallpaper
   const cycleNextBackground = () => {
-    const ids: BgTheme[] = ['selenite', 'legaltech', 'faculte', 'one_day', 'none'];
+    const ids: BgTheme[] = ['faculte', 'noel', 'onsen', 'selenite', 'legaltech', 'one_day', 'none'];
     const currentIndex = ids.indexOf(bgTheme);
     const nextTheme = ids[(currentIndex + 1) % ids.length];
     setBgTheme(nextTheme);
@@ -287,6 +308,7 @@ export default function App() {
   const [lastCompletedMode, setLastCompletedMode] = useState<TimerMode>('revision');
   const [completionQuote, setCompletionQuote] = useState<LawQuote>(currentQuote);
   const [showSurvivalGuide, setShowSurvivalGuide] = useState<boolean>(false);
+  const [survivalGuideTab, setSurvivalGuideTab] = useState<'infographie' | 'regles'>('infographie');
   const [showSecurityModal, setShowSecurityModal] = useState<boolean>(false);
   const [notifPermission, setNotifPermission] = useState<NotificationPermission>(() => getNotificationPermission());
 
@@ -471,13 +493,17 @@ export default function App() {
           <img
             key={bgTheme}
             src={
-              bgTheme === 'selenite'
-                ? '/assets/coeur_selenite_zen.jpg'
-                : bgTheme === 'legaltech'
-                  ? '/assets/legaltech_zen_code.jpg'
-                  : bgTheme === 'one_day'
-                    ? '/assets/amphi_un_jour_a_la_fois.jpg'
-                    : '/assets/aistudio/facdroit_a098dbcf.jpg'
+              bgTheme === 'faculte'
+                ? getAssetUrl('assets/aistudio/facdroit_a098dbcf.jpg')
+                : bgTheme === 'noel'
+                  ? getAssetUrl('assets/noel_droit_cheminee.jpg')
+                  : bgTheme === 'onsen'
+                    ? getAssetUrl('assets/japon_onsen_sakura.jpg')
+                    : bgTheme === 'selenite'
+                      ? getAssetUrl('assets/coeur_selenite_zen.jpg')
+                      : bgTheme === 'legaltech'
+                        ? getAssetUrl('assets/legaltech_zen_code.jpg')
+                        : getAssetUrl('assets/amphi_un_jour_a_la_fois.jpg')
             }
             alt="Arrière-plan Motivation Droit"
             className={`w-full h-full object-cover object-center transition-all duration-500 ease-out ${
@@ -488,6 +514,156 @@ export default function App() {
                   : 'opacity-40 scale-100'
             }`}
           />
+
+          {/* =====================================================================
+              ADAPTED BESPOKE ANIMATIONS FOR EVERY WALLPAPER THEME
+              ===================================================================== */}
+          
+          {/* 1. FACULTÉ DE DROIT : Résonance acoustique de la cathédrale & étoiles du crépuscule */}
+          {bgTheme === 'faculte' && (
+            <div className="absolute inset-0 pointer-events-none overflow-hidden mix-blend-screen">
+              {/* Concentric acoustic cathedral bell waves rippling from the Gothic spire */}
+              <div className="absolute top-[26%] right-[22%] w-24 h-24 -translate-x-1/2 -translate-y-1/2 rounded-full border border-amber-300/40 animate-cathedral-ring-1" />
+              <div className="absolute top-[26%] right-[22%] w-24 h-24 -translate-x-1/2 -translate-y-1/2 rounded-full border border-amber-200/30 animate-cathedral-ring-2" />
+              <div className="absolute top-[26%] right-[22%] w-8 h-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300/40 blur-md animate-pulse" />
+
+              {/* Twilight starlight twinkling in the dusk sky */}
+              <div className="absolute top-[12%] left-[35%] w-1.5 h-1.5 rounded-full bg-amber-100 animate-twilight-star" />
+              <div className="absolute top-[18%] left-[55%] w-2 h-2 rounded-full bg-yellow-100 animate-twilight-star" style={{ animationDelay: '1.4s' }} />
+              <div className="absolute top-[8%] right-[32%] w-1.5 h-1.5 rounded-full bg-amber-200 animate-twilight-star" style={{ animationDelay: '2.2s' }} />
+              <div className="absolute top-[22%] left-[18%] w-1 h-1 rounded-full bg-white/90 animate-twilight-star" style={{ animationDelay: '0.7s' }} />
+
+              {/* Warm lamppost glows on the historical cobblestone plaza */}
+              <div className="absolute bottom-[28%] left-[24%] w-44 h-44 rounded-full bg-amber-500/20 blur-2xl animate-candle-glow" />
+              <div className="absolute bottom-[32%] right-[35%] w-40 h-40 rounded-full bg-orange-400/15 blur-2xl animate-candle-glow" style={{ animationDelay: '2s' }} />
+            </div>
+          )}
+
+          {/* 2. SOIR DE NOËL : Cheminée crépitante, guirlandes, flocons & vapeur de chocolat */}
+          {bgTheme === 'noel' && (
+            <div className="absolute inset-0 pointer-events-none overflow-hidden mix-blend-screen">
+              {/* Hearth fireplace warm flame crackle & glow */}
+              <div className="absolute bottom-[28%] left-[34%] w-[420px] h-[340px] -translate-x-1/2 rounded-full bg-gradient-to-t from-orange-600/35 via-amber-500/25 to-transparent blur-3xl animate-fireplace-glow" />
+              <div className="absolute bottom-[34%] left-[34%] w-48 h-32 -translate-x-1/2 rounded-full bg-yellow-400/30 blur-xl animate-candle-glow" />
+
+              {/* Gentle snowfall drifting outside the frosty window panes */}
+              <div className="absolute top-[14%] right-[24%] w-1.5 h-1.5 rounded-full bg-white/80 animate-snow-1" />
+              <div className="absolute top-[22%] right-[18%] w-2 h-2 rounded-full bg-white/90 animate-snow-2" />
+              <div className="absolute top-[10%] right-[12%] w-1 h-1 rounded-full bg-sky-100/80 animate-snow-3" />
+              <div className="absolute top-[28%] right-[28%] w-1.5 h-1.5 rounded-full bg-white/75 animate-snow-1" style={{ animationDelay: '2.5s' }} />
+              <div className="absolute top-[35%] right-[15%] w-2 h-2 rounded-full bg-white/85 animate-snow-2" style={{ animationDelay: '4s' }} />
+
+              {/* Christmas tree fairy lights twinkle */}
+              <div className="absolute top-[32%] left-[12%] w-2 h-2 rounded-full bg-rose-400 text-rose-300 animate-xmas-light-1" />
+              <div className="absolute top-[42%] left-[16%] w-2.5 h-2.5 rounded-full bg-amber-300 text-amber-200 animate-xmas-light-2" />
+              <div className="absolute top-[52%] left-[9%] w-2 h-2 rounded-full bg-emerald-400 text-emerald-300 animate-xmas-light-3" />
+              <div className="absolute top-[26%] left-[14%] w-2 h-2 rounded-full bg-blue-300 text-blue-200 animate-xmas-light-1" style={{ animationDelay: '1.2s' }} />
+              <div className="absolute top-[48%] left-[20%] w-2 h-2 rounded-full bg-pink-300 text-pink-200 animate-xmas-light-2" style={{ animationDelay: '0.8s' }} />
+
+              {/* Warm desk lamp & steaming hot chocolate glow */}
+              <div className="absolute bottom-[38%] right-[32%] w-56 h-56 rounded-full bg-amber-400/25 blur-2xl animate-candle-glow" />
+              <div className="absolute bottom-[44%] right-[44%] w-16 h-24 rounded-full bg-amber-100/15 blur-lg animate-coffee-steam" />
+            </div>
+          )}
+
+          {/* 3. ONSEN & SAKURA : Vapeur thermale, pétales de cerisier en dérive & lanternes */}
+          {bgTheme === 'onsen' && (
+            <div className="absolute inset-0 pointer-events-none overflow-hidden mix-blend-screen">
+              {/* Soft rising thermal steam mist over the warm waters */}
+              <div className="absolute inset-x-0 bottom-6 h-80 bg-gradient-to-t from-white/20 via-pink-100/10 to-transparent blur-2xl animate-onsen-steam" />
+              <div className="absolute bottom-24 left-1/4 w-[420px] h-52 bg-white/15 blur-3xl animate-onsen-steam" style={{ animationDelay: '3.2s' }} />
+              
+              {/* Gentle warm lantern glows */}
+              <div className="absolute bottom-[28%] left-[8%] w-48 h-48 rounded-full bg-amber-400/25 blur-2xl animate-candle-glow" />
+              <div className="absolute bottom-[36%] right-[8%] w-48 h-48 rounded-full bg-amber-400/25 blur-2xl animate-candle-glow" style={{ animationDelay: '2.2s' }} />
+
+              {/* Floating, gently swaying pink sakura blossom petals */}
+              <div className="absolute top-[8%] left-[22%] text-pink-300/85 animate-sakura-1">
+                <svg className="w-4 h-4 fill-pink-300/85 transform rotate-12 drop-shadow-xs" viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 5.5 6 9c0 4.5 6 13 6 13s6-8.5 6-13c0-3.5-2.5-7-6-7z"/></svg>
+              </div>
+              <div className="absolute top-[14%] right-[26%] text-rose-200/85 animate-sakura-2">
+                <svg className="w-3.5 h-3.5 fill-rose-200/85 transform rotate-45 drop-shadow-xs" viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 5.5 6 9c0 4.5 6 13 6 13s6-8.5 6-13c0-3.5-2.5-7-6-7z"/></svg>
+              </div>
+              <div className="absolute top-[20%] left-[42%] text-pink-200/75 animate-sakura-3">
+                <svg className="w-4.5 h-4.5 fill-pink-200/75 transform -rotate-15 drop-shadow-xs" viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 5.5 6 9c0 4.5 6 13 6 13s6-8.5 6-13c0-3.5-2.5-7-6-7z"/></svg>
+              </div>
+              <div className="absolute top-[6%] right-[14%] text-rose-300/75 animate-sakura-4">
+                <svg className="w-3 h-3 fill-rose-300/75 transform rotate-30 drop-shadow-xs" viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 5.5 6 9c0 4.5 6 13 6 13s6-8.5 6-13c0-3.5-2.5-7-6-7z"/></svg>
+              </div>
+              <div className="absolute top-[32%] right-[38%] text-pink-200/65 animate-sakura-2" style={{ animationDelay: '2.1s' }}>
+                <svg className="w-3.5 h-3.5 fill-pink-200/65 transform rotate-60 drop-shadow-xs" viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 5.5 6 9c0 4.5 6 13 6 13s6-8.5 6-13c0-3.5-2.5-7-6-7z"/></svg>
+              </div>
+            </div>
+          )}
+
+          {/* 4. CŒUR DE SÉLÉNITE : Aura respirante cyan-blanche & étincelles prismatiques */}
+          {bgTheme === 'selenite' && (
+            <div className="absolute inset-0 pointer-events-none overflow-hidden mix-blend-screen">
+              {/* Pure opalescent cyan-white crystal heart core pulse */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] h-[460px] rounded-full bg-gradient-to-tr from-cyan-400/20 via-sky-200/15 to-transparent blur-3xl animate-selenite-pulse" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full bg-white/20 blur-xl animate-selenite-pulse" style={{ animationDelay: '1.5s' }} />
+
+              {/* Crystalline prism light gleams & diamond glints */}
+              <div className="absolute top-[42%] left-[44%] w-3 h-3 text-cyan-200 animate-prism-gleam-1">
+                <svg className="w-full h-full fill-white drop-shadow-md" viewBox="0 0 24 24"><path d="M12 0l3.09 8.26L24 12l-8.91 3.74L12 24l-3.09-8.26L0 12l8.91-3.74z"/></svg>
+              </div>
+              <div className="absolute top-[52%] right-[42%] w-3.5 h-3.5 text-sky-100 animate-prism-gleam-2">
+                <svg className="w-full h-full fill-white drop-shadow-md" viewBox="0 0 24 24"><path d="M12 0l3.09 8.26L24 12l-8.91 3.74L12 24l-3.09-8.26L0 12l8.91-3.74z"/></svg>
+              </div>
+              <div className="absolute top-[36%] right-[48%] w-2 h-2 text-white animate-prism-gleam-1" style={{ animationDelay: '2.2s' }}>
+                <svg className="w-full h-full fill-white" viewBox="0 0 24 24"><path d="M12 0l3.09 8.26L24 12l-8.91 3.74L12 24l-3.09-8.26L0 12l8.91-3.74z"/></svg>
+              </div>
+
+              {/* Sacred candle warm golden flame glow beside the crystal */}
+              <div className="absolute bottom-[30%] left-[28%] w-48 h-48 rounded-full bg-amber-400/25 blur-2xl animate-candle-glow" />
+            </div>
+          )}
+
+          {/* 5. LEGALTECH & ZEN CODE : Code émeraude montant, balances de Thémis & lueur phosphorique */}
+          {bgTheme === 'legaltech' && (
+            <div className="absolute inset-0 pointer-events-none overflow-hidden mix-blend-screen">
+              {/* Glowing emerald screen phosphor pulse */}
+              <div className="absolute top-[38%] right-[28%] w-[420px] h-[320px] rounded-full bg-emerald-500/18 blur-3xl animate-screen-glow" />
+
+              {/* Themis golden balance scale gleam */}
+              <div className="absolute top-[32%] left-[28%] w-[280px] h-[280px] rounded-full bg-amber-400/22 blur-2xl animate-themis-gleam" />
+              <div className="absolute top-[28%] left-[30%] w-3 h-3 text-amber-200 animate-prism-gleam-1">
+                <svg className="w-full h-full fill-amber-300 drop-shadow-md" viewBox="0 0 24 24"><path d="M12 0l3.09 8.26L24 12l-8.91 3.74L12 24l-3.09-8.26L0 12l8.91-3.74z"/></svg>
+              </div>
+
+              {/* Ascending emerald matrix/code particles */}
+              <div className="absolute bottom-[35%] right-[32%] font-mono text-[11px] font-bold text-emerald-400/80 animate-cyber-float-1">
+                &lt;jurisprudence/&gt;
+              </div>
+              <div className="absolute bottom-[42%] right-[22%] font-mono text-[10px] font-bold text-emerald-300/70 animate-cyber-float-2">
+                01100010
+              </div>
+              <div className="absolute bottom-[28%] right-[38%] font-mono text-[11px] font-bold text-teal-300/70 animate-cyber-float-3">
+                art.1103.val()
+              </div>
+              <div className="absolute bottom-[48%] right-[27%] font-mono text-[10px] font-bold text-emerald-400/60 animate-cyber-float-1" style={{ animationDelay: '3s' }}>
+                syllogisme.ok
+              </div>
+            </div>
+          )}
+
+          {/* 6. UN JOUR À LA FOIS : Rayon de soleil matinal, vapeur de café & poussières dorées */}
+          {bgTheme === 'one_day' && (
+            <div className="absolute inset-0 pointer-events-none overflow-hidden mix-blend-screen">
+              {/* Morning dawn sunbeam streaming through amphitheater windows */}
+              <div className="absolute top-0 right-[20%] w-96 h-full bg-gradient-to-b from-yellow-300/20 via-amber-200/10 to-transparent blur-3xl animate-sunbeam" />
+              
+              {/* Golden morning dust motes floating in the sunbeam */}
+              <div className="absolute top-[35%] right-[25%] w-2 h-2 rounded-full bg-yellow-200/70 blur-[0.5px] animate-dust-1" />
+              <div className="absolute top-[48%] right-[30%] w-1.5 h-1.5 rounded-full bg-amber-100/80 blur-[0.5px] animate-dust-2" />
+              <div className="absolute top-[28%] right-[35%] w-2.5 h-2.5 rounded-full bg-yellow-200/60 blur-[1px] animate-dust-3" />
+              <div className="absolute top-[58%] right-[22%] w-1.5 h-1.5 rounded-full bg-amber-200/70 blur-[0.5px] animate-dust-1" style={{ animationDelay: '3.5s' }} />
+
+              {/* Morning coffee steam rising gently on the desk */}
+              <div className="absolute bottom-[34%] left-[36%] w-12 h-20 rounded-full bg-amber-100/20 blur-md animate-coffee-steam" />
+              <div className="absolute bottom-[30%] left-[34%] w-32 h-32 rounded-full bg-amber-500/15 blur-xl animate-candle-glow" />
+            </div>
+          )}
 
           {/* Protective Scrim Overlay tailored for optimal contrast and beauty */}
           <div 
@@ -508,6 +684,14 @@ export default function App() {
                 : 'opacity-35 bg-gradient-to-b from-[#452219]/50 via-transparent to-[#0B0F17]/60'
             }`}
           />
+        </div>
+      )}
+
+      {/* 7. MINIMALISTE : Respiration d'aurore pastel harmonique */}
+      {bgTheme === 'none' && (
+        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-emerald-500/10 blur-3xl animate-aurora-breath" />
+          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-rose-500/10 blur-3xl animate-aurora-breath" style={{ animationDelay: '3.5s' }} />
         </div>
       )}
 
@@ -543,8 +727,12 @@ export default function App() {
         {/* Zone 2: Navigation / Info trigger */}
         <div className="hidden sm:flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
           <button
-            onClick={() => setShowSurvivalGuide(true)}
-            className="px-3 py-1.5 rounded-lg hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-colors flex items-center gap-1.5 font-medium whitespace-nowrap shrink-0"
+            onClick={() => {
+              setSurvivalGuideTab('regles');
+              setShowSurvivalGuide(true);
+            }}
+            className="px-3 py-1.5 rounded-lg hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-colors flex items-center gap-1.5 font-medium whitespace-nowrap shrink-0 cursor-pointer"
+            title="Consulter vos grades, rangs et les 5 commandements de survie"
           >
             <Award className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
             <span>Grade : {currentRank.badge}</span>
@@ -569,15 +757,19 @@ export default function App() {
               >
                 <ImageIcon className="w-3.5 h-3.5 text-rose-400" />
                 <span className="hidden sm:inline">
-                  {bgTheme === 'selenite'
-                    ? 'Sélénite 🤍'
-                    : bgTheme === 'legaltech'
-                      ? 'LegalTech ⚖️💻'
-                      : bgTheme === 'faculte'
-                        ? 'Faculté 🏛️'
-                        : bgTheme === 'one_day'
-                          ? '1 jour à la fois ☀️'
-                          : 'Épuré 🍃'}
+                  {bgTheme === 'faculte'
+                    ? 'Faculté 🏛️'
+                    : bgTheme === 'noel'
+                      ? 'Soir de Noël 🎄🐱'
+                      : bgTheme === 'onsen'
+                        ? 'Onsen Sakura 🌸🐒'
+                        : bgTheme === 'selenite'
+                          ? 'Sélénite 🤍'
+                          : bgTheme === 'legaltech'
+                            ? 'LegalTech ⚖️💻'
+                            : bgTheme === 'one_day'
+                              ? '1 jour à la fois ☀️'
+                              : 'Épuré 🍃'}
                 </span>
                 <span className="sm:hidden">Fond</span>
               </button>
@@ -616,7 +808,7 @@ export default function App() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[11px] text-rose-400 font-medium">
-                      Mode Nuit · 5 ambiances
+                      Mode Nuit · 7 ambiances
                     </span>
                     <button
                       type="button"
@@ -955,8 +1147,12 @@ export default function App() {
 
           {/* Survival Guide button */}
           <button
-            onClick={() => setShowSurvivalGuide(true)}
-            className="px-3.5 py-2 text-xs font-semibold text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-xl transition-colors shadow-xs whitespace-nowrap shrink-0 flex items-center gap-1.5"
+            onClick={() => {
+              setSurvivalGuideTab('infographie');
+              setShowSurvivalGuide(true);
+            }}
+            className="px-3.5 py-2 text-xs font-semibold text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-xl transition-colors shadow-xs whitespace-nowrap shrink-0 flex items-center gap-1.5 cursor-pointer"
+            title="Consulter le Code de survie & l'infographie visuelle de méthode"
           >
             <Sparkles className="w-3.5 h-3.5 text-amber-500" />
             <span className="hidden sm:inline">Code de survie</span>
@@ -968,8 +1164,8 @@ export default function App() {
       {/* Main Content Area */}
       <main className="flex-1 w-full max-w-4xl mx-auto px-4 py-8 sm:py-12 flex flex-col items-center justify-center relative z-10">
         
-        {/* Study Subject Filter Strip */}
-        <div className="w-full max-w-md mb-6 flex justify-center">
+        {/* Study Subject Filter Strip - Full width container without clipping Doctorant en Droit */}
+        <div className="w-full max-w-2xl mb-6 flex justify-center px-2">
           <SubjectSelector
             selectedSubject={selectedSubject}
             onSelect={handleSelectSubject}
@@ -1195,6 +1391,7 @@ export default function App() {
         isOpen={showSurvivalGuide}
         onClose={() => setShowSurvivalGuide(false)}
         completedSessions={completedSessions}
+        initialTab={survivalGuideTab}
       />
 
       {/* Security & Copyright Modal */}

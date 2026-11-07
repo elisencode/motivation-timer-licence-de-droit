@@ -7,8 +7,8 @@ interface SubjectSelectorProps {
 
 export function SubjectSelector({ selectedSubject, onSelect }: SubjectSelectorProps) {
   return (
-    <div className="flex items-center gap-2 overflow-x-auto pb-1 max-w-full scrollbar-none no-scrollbar">
-      <span className="text-xs font-bold text-rose-300 dark:text-rose-400 whitespace-nowrap shrink-0 pr-1 flex items-center gap-1.5">
+    <div className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 sm:gap-2.5 max-w-full">
+      <span className="text-xs font-bold text-rose-300 dark:text-rose-400 whitespace-nowrap shrink-0 flex items-center gap-1 px-1">
         <span>⚖️ Droit en Focus :</span>
       </span>
       {LAW_SUBJECTS.map((sub) => {
